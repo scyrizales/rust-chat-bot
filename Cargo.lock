@@ -1751,11 +1751,13 @@ dependencies = [
  "actix-files",
  "actix-web",
  "console_error_panic_hook",
+ "futures",
  "http 1.1.0",
  "leptos",
  "leptos_actix",
  "leptos_meta",
  "leptos_router",
+ "serde",
  "wasm-bindgen",
 ]
 

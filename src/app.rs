@@ -1,11 +1,12 @@
 use leptos::*;
 use leptos_meta::*;
-use leptos_router::*;
 
 #[component]
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
+
+    let (name, set_name) = create_signal("Controlled".to_string());
 
     view! {
         // injects a stylesheet into the document <head>
@@ -15,30 +16,21 @@ pub fn App() -> impl IntoView {
         <Script src="https://cdn.tailwindcss.com" />
 
         // sets the document title
-        <Title text="Welcome to Chat bot"/>
+        <Title text="Rusty Llama"/>
+        <input type="text"
+        on:input=move |ev| {
+                // event_target_value is a Leptos helper function
+                // it functions the same way as event.target.value
+                // in JavaScript, but smooths out some of the typecasting
+                // necessary to make this work in Rust
+                set_name(event_target_value(&ev));
+            }
 
-        // content for this welcome page
-        <Router>
-            <main>
-                <Routes>
-                    <Route path="" view=HomePage/>
-                    <Route path="/*any" view=NotFound/>
-                </Routes>
-            </main>
-        </Router>
-    }
-}
-
-/// Renders the home page of your application.
-#[component]
-fn HomePage() -> impl IntoView {
-    // Creates a reactive value to update the button
-    let (count, set_count) = create_signal(0);
-    let on_click = move |_| set_count.update(|count| *count += 1);
-
-    view! {
-        <h1>"Welcome to Chat Bot!"</h1>
-        <button class="btn" on:click=on_click>"Click Me: " {count}</button>
+            // the `prop:` syntax lets you update a DOM property,
+            // rather than an attribute.
+            prop:value=name
+        />
+        <p>"Name is: " {name}</p>
     }
 }
 
