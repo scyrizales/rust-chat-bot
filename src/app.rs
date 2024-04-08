@@ -11,6 +11,8 @@ pub fn App() -> impl IntoView {
         // injects a stylesheet into the document <head>
         // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/rust-chat-bot.css"/>
+        <Stylesheet href="https://cdn.jsdelivr.net/npm/daisyui@2.6.0/dist/full.css" />
+        <Script src="https://cdn.tailwindcss.com" />
 
         // sets the document title
         <Title text="Welcome to Chat bot"/>
@@ -36,7 +38,7 @@ fn HomePage() -> impl IntoView {
 
     view! {
         <h1>"Welcome to Chat Bot!"</h1>
-        <button on:click=on_click>"Click Me: " {count}</button>
+        <button class="btn" on:click=on_click>"Click Me: " {count}</button>
     }
 }
 
